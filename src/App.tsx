@@ -17,11 +17,13 @@ import {
   LearnerCoreFlowPreview,
 } from './components/LearnerCoreFlow';
 import { MobileShell, TopNav } from './components/Layout';
+import { TypographyGalleryCatalog, TypographyGalleryPreview } from './components/TypographyGallery';
 import { designTokens } from './design-tokens';
 
 const sections = [
   'Tokens',
   'Icons',
+  'Typography',
   'Buttons',
   'Forms',
   'Cards',
@@ -29,7 +31,7 @@ const sections = [
   'Learner Flow',
 ] as const;
 type Section = (typeof sections)[number];
-type PrimitiveSection = Exclude<Section, 'Icons' | 'Learner Flow' | 'Tokens'>;
+type PrimitiveSection = Exclude<Section, 'Icons' | 'Learner Flow' | 'Tokens' | 'Typography'>;
 
 const tokenGroups = [
   {
@@ -110,6 +112,8 @@ function App() {
                   ? 'Learner Flow'
                   : activeSection === 'Icons'
                     ? 'Icons'
+                    : activeSection === 'Typography'
+                      ? 'Typography'
                     : 'Component Preview'
               }
             />
@@ -121,6 +125,8 @@ function App() {
                 />
               ) : activeSection === 'Icons' ? (
                 <IconGalleryPreview />
+              ) : activeSection === 'Typography' ? (
+                <TypographyGalleryPreview />
               ) : (
                 <>
                   <section className="vv-preview-hero">
@@ -222,6 +228,8 @@ function App() {
                 ? 'Design Tokens'
                 : activeSection === 'Icons'
                   ? 'Icon Library'
+                  : activeSection === 'Typography'
+                    ? 'Typography Scale'
                 : activeSection === 'Learner Flow'
                   ? 'Learner Components'
                   : 'Component States'}
@@ -247,6 +255,8 @@ function App() {
             </div>
           ) : activeSection === 'Icons' ? (
             <IconGalleryCatalog />
+          ) : activeSection === 'Typography' ? (
+            <TypographyGalleryCatalog />
           ) : activeSection === 'Learner Flow' ? (
             <LearnerCoreFlowCatalog
               onSelect={setSelectedLearnerComponent}
