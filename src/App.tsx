@@ -10,6 +10,7 @@ import {
 import { InfoPanel, SongSectionCard } from './components/Cards';
 import { MicLevelMeter, ProgressBar, ToastAlert } from './components/Feedback';
 import { CustomCheckbox, FailureTagChip, TextInput } from './components/FormControls';
+import { IconGalleryCatalog, IconGalleryPreview } from './components/IconGallery';
 import {
   type LearnerComponentId,
   LearnerCoreFlowCatalog,
@@ -18,9 +19,17 @@ import {
 import { MobileShell, TopNav } from './components/Layout';
 import { designTokens } from './design-tokens';
 
-const sections = ['Tokens', 'Buttons', 'Forms', 'Cards', 'Feedback', 'Learner Flow'] as const;
+const sections = [
+  'Tokens',
+  'Icons',
+  'Buttons',
+  'Forms',
+  'Cards',
+  'Feedback',
+  'Learner Flow',
+] as const;
 type Section = (typeof sections)[number];
-type PrimitiveSection = Exclude<Section, 'Learner Flow' | 'Tokens'>;
+type PrimitiveSection = Exclude<Section, 'Icons' | 'Learner Flow' | 'Tokens'>;
 
 const tokenGroups = [
   {
@@ -95,13 +104,23 @@ function App() {
 
         <div className="vv-preview-column">
           <MobileShell>
-            <TopNav title={activeSection === 'Learner Flow' ? 'Learner Flow' : 'Component Preview'} />
+            <TopNav
+              title={
+                activeSection === 'Learner Flow'
+                  ? 'Learner Flow'
+                  : activeSection === 'Icons'
+                    ? 'Icons'
+                    : 'Component Preview'
+              }
+            />
             <div className="vv-mobile-scroll">
               {activeSection === 'Learner Flow' ? (
                 <LearnerCoreFlowPreview
                   onSelect={setSelectedLearnerComponent}
                   selectedId={selectedLearnerComponent}
                 />
+              ) : activeSection === 'Icons' ? (
+                <IconGalleryPreview />
               ) : (
                 <>
                   <section className="vv-preview-hero">
@@ -201,6 +220,8 @@ function App() {
             <h2>
               {activeSection === 'Tokens'
                 ? 'Design Tokens'
+                : activeSection === 'Icons'
+                  ? 'Icon Library'
                 : activeSection === 'Learner Flow'
                   ? 'Learner Components'
                   : 'Component States'}
@@ -224,6 +245,8 @@ function App() {
                 </section>
               ))}
             </div>
+          ) : activeSection === 'Icons' ? (
+            <IconGalleryCatalog />
           ) : activeSection === 'Learner Flow' ? (
             <LearnerCoreFlowCatalog
               onSelect={setSelectedLearnerComponent}
