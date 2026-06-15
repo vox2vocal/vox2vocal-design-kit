@@ -42,6 +42,7 @@ export function CustomCheckbox({ checked, children, onChange }: CustomCheckboxPr
     <label className="vv-checkbox-row">
       <input
         checked={checked}
+        className="vv-checkbox-input"
         onChange={(event) => onChange(event.currentTarget.checked)}
         type="checkbox"
       />
@@ -65,4 +66,3 @@ export function FailureTagChip({ children, onClick, selected }: FailureTagChipPr
     </button>
   );
 }
-

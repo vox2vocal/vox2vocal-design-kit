@@ -547,14 +547,27 @@ button {
   gap: 10px;
   grid-template-columns: 22px 1fr;
   line-height: 1.45;
+  position: relative;
 }
 
-.vv-checkbox-row input {
+.vv-checkbox-input {
   appearance: none;
-  height: 1px;
+  border: 0;
+  cursor: pointer;
+  height: 22px;
+  left: 0;
+  margin: 0;
   opacity: 0;
+  padding: 0;
   position: absolute;
-  width: 1px;
+  top: 0;
+  width: 22px;
+  z-index: 1;
+}
+
+.vv-checkbox-input:focus-visible {
+  box-shadow: none;
+  outline: 0;
 }
 
 .vv-checkbox-box {
@@ -578,13 +591,18 @@ button {
   transition: transform 0.18s ease;
 }
 
-.vv-checkbox-row input:checked + .vv-checkbox-box {
+.vv-checkbox-input:focus-visible + .vv-checkbox-box {
+  border-color: var(--vv-border-focus);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.14);
+}
+
+.vv-checkbox-input:checked + .vv-checkbox-box {
   background: var(--vv-red-default);
   border-color: var(--vv-red-default);
   box-shadow: 0 0 12px rgba(220, 38, 38, 0.35);
 }
 
-.vv-checkbox-row input:checked + .vv-checkbox-box svg {
+.vv-checkbox-input:checked + .vv-checkbox-box svg {
   transform: scale(1);
 }
 
