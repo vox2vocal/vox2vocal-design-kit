@@ -876,6 +876,61 @@ button {
   animation: vv-spin 1s linear infinite;
 }
 
+.vv-field-set,
+.vv-checkbox-demo-group {
+  display: grid;
+  gap: 9px;
+}
+
+.vv-field-label {
+  color: var(--vv-text-primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.vv-helper-text,
+.vv-error-text {
+  align-items: center;
+  display: inline-flex;
+  font-size: 11px;
+  gap: 5px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.vv-helper-text {
+  color: var(--vv-text-tertiary);
+}
+
+.vv-error-text {
+  color: #f87171;
+}
+
+.vv-validation-note {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  display: grid;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 9px;
+  grid-template-columns: 18px 1fr;
+  min-height: 42px;
+  padding: 10px 12px;
+}
+
+.vv-validation-note-success {
+  background: rgba(46, 232, 182, 0.1);
+  border-color: rgba(46, 232, 182, 0.28);
+  color: #2ee8b6;
+}
+
+.vv-validation-note-danger {
+  background: rgba(127, 29, 29, 0.36);
+  border-color: rgba(248, 113, 113, 0.32);
+  color: #f87171;
+}
+
 @keyframes vv-spin {
   to {
     transform: rotate(360deg);

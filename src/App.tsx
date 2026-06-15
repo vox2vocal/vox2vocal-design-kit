@@ -10,6 +10,7 @@ import {
 import { ButtonGalleryCatalog, ButtonGalleryPreview } from './components/ButtonGallery';
 import { InfoPanel, SongSectionCard } from './components/Cards';
 import { MicLevelMeter, ProgressBar, ToastAlert } from './components/Feedback';
+import { FormGalleryCatalog, FormGalleryPreview } from './components/FormGallery';
 import { CustomCheckbox, FailureTagChip, TextInput } from './components/FormControls';
 import { IconGalleryCatalog, IconGalleryPreview } from './components/IconGallery';
 import {
@@ -34,7 +35,7 @@ const sections = [
 type Section = (typeof sections)[number];
 type PrimitiveSection = Exclude<
   Section,
-  'Buttons' | 'Icons' | 'Learner Flow' | 'Tokens' | 'Typography'
+  'Buttons' | 'Forms' | 'Icons' | 'Learner Flow' | 'Tokens' | 'Typography'
 >;
 
 const tokenGroups = [
@@ -120,7 +121,9 @@ function App() {
                       ? 'Typography'
                       : activeSection === 'Buttons'
                         ? 'Buttons'
-                        : 'Component Preview'
+                        : activeSection === 'Forms'
+                          ? 'Forms'
+                          : 'Component Preview'
               }
             />
             <div className="vv-mobile-scroll">
@@ -135,6 +138,8 @@ function App() {
                 <TypographyGalleryPreview />
               ) : activeSection === 'Buttons' ? (
                 <ButtonGalleryPreview />
+              ) : activeSection === 'Forms' ? (
+                <FormGalleryPreview />
               ) : (
                 <>
                   <section className="vv-preview-hero">
@@ -240,9 +245,11 @@ function App() {
                     ? 'Typography Scale'
                     : activeSection === 'Buttons'
                       ? 'Button Components'
-                      : activeSection === 'Learner Flow'
-                        ? 'Learner Components'
-                        : 'Component States'}
+                      : activeSection === 'Forms'
+                        ? 'Form Components'
+                        : activeSection === 'Learner Flow'
+                          ? 'Learner Components'
+                          : 'Component States'}
             </h2>
           </div>
 
@@ -269,6 +276,8 @@ function App() {
             <TypographyGalleryCatalog />
           ) : activeSection === 'Buttons' ? (
             <ButtonGalleryCatalog />
+          ) : activeSection === 'Forms' ? (
+            <FormGalleryCatalog />
           ) : activeSection === 'Learner Flow' ? (
             <LearnerCoreFlowCatalog
               onSelect={setSelectedLearnerComponent}
