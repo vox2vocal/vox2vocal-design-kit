@@ -811,6 +811,77 @@ button {
   margin: 0;
 }
 
+.vv-component-stack {
+  display: grid;
+  gap: 13px;
+}
+
+.vv-component-demo-card {
+  background: rgba(18, 18, 18, 0.84);
+  border: 1px solid var(--vv-border-default);
+  border-radius: var(--vv-radius-xxl);
+  display: grid;
+  gap: 13px;
+  min-width: 0;
+  padding: 16px;
+}
+
+.vv-component-demo-card:hover {
+  border-color: rgba(239, 68, 68, 0.32);
+  box-shadow: var(--vv-glow-subtle);
+}
+
+.vv-component-demo-header {
+  display: grid;
+  gap: 5px;
+}
+
+.vv-component-demo-header h3 {
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.vv-component-demo-header h3 em {
+  color: var(--vv-text-secondary);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.vv-component-demo-header p {
+  color: var(--vv-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.vv-button-danger {
+  background: rgba(127, 29, 29, 0.42);
+  border: 1px solid rgba(248, 113, 113, 0.46);
+  color: var(--vv-text-primary);
+}
+
+.vv-button-danger:hover {
+  background: rgba(153, 27, 27, 0.72);
+  box-shadow: var(--vv-glow-primary);
+  transform: translateY(-1px);
+}
+
+.vv-button-loading {
+  cursor: progress;
+}
+
+.vv-button-loading svg {
+  animation: vv-spin 1s linear infinite;
+}
+
+@keyframes vv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .vv-icon-grid {
   display: grid;
   gap: 10px;
