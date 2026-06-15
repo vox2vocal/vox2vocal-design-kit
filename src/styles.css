@@ -931,6 +931,147 @@ button {
   color: #f87171;
 }
 
+.vv-card-metric-grid,
+.vv-card-status-grid {
+  display: grid;
+  gap: 9px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vv-card-status-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vv-card-metric,
+.vv-card-status,
+.vv-action-list-card {
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.vv-card-metric {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+}
+
+.vv-card-metric-warning {
+  background: rgba(246, 191, 79, 0.09);
+  border-color: rgba(246, 191, 79, 0.26);
+}
+
+.vv-card-metric span,
+.vv-card-status small,
+.vv-action-list-card small {
+  color: var(--vv-text-tertiary);
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.vv-card-metric strong {
+  color: var(--vv-text-primary);
+  display: block;
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.vv-card-metric small {
+  color: var(--vv-red-light);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vv-card-status {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.vv-card-status-icon {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+.vv-card-status-icon-success {
+  background: rgba(46, 232, 182, 0.11);
+  border-color: rgba(46, 232, 182, 0.3);
+  color: #2ee8b6;
+}
+
+.vv-card-status-icon-warning {
+  background: rgba(246, 191, 79, 0.11);
+  border-color: rgba(246, 191, 79, 0.3);
+  color: #f6bf4f;
+}
+
+.vv-card-status-icon-danger {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.32);
+  color: #f87171;
+}
+
+.vv-card-status strong {
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.vv-action-list-card {
+  align-items: center;
+  color: var(--vv-text-primary);
+  cursor: pointer;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: 40px 1fr 18px;
+  padding: 12px;
+  text-align: left;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  width: 100%;
+}
+
+.vv-action-list-card:hover,
+.vv-action-list-card.is-selected {
+  background: linear-gradient(90deg, rgba(127, 29, 29, 0.24), rgba(18, 18, 18, 0.88));
+  border-color: var(--vv-border-focus);
+  box-shadow: var(--vv-glow-subtle);
+}
+
+.vv-action-list-card:hover {
+  transform: translateY(-1px);
+}
+
+.vv-action-list-icon {
+  align-items: center;
+  background: rgba(220, 38, 38, 0.13);
+  border-radius: 12px;
+  color: var(--vv-red-light);
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.vv-action-list-card strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.32;
+}
+
 @keyframes vv-spin {
   to {
     transform: rotate(360deg);
