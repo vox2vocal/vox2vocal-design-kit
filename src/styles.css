@@ -1150,6 +1150,234 @@ button {
   font-weight: 800;
 }
 
+.vv-audio-gauge-layout {
+  align-items: center;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 126px 1fr;
+}
+
+.vv-voice-gauge {
+  align-items: center;
+  border-radius: 999px;
+  box-shadow: var(--vv-glow-subtle);
+  display: flex;
+  height: 126px;
+  justify-content: center;
+  padding: 8px;
+  width: 126px;
+}
+
+.vv-voice-gauge > div {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.18), transparent 66%),
+    var(--vv-surface-1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.vv-voice-gauge svg {
+  color: var(--vv-red-light);
+}
+
+.vv-voice-gauge strong {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.vv-voice-gauge span {
+  color: var(--vv-text-secondary);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vv-audio-gauge-controls,
+.vv-audio-tuning-stack {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.vv-audio-wave-meter {
+  align-items: end;
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.09), rgba(5, 5, 5, 0.22));
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 14px;
+  display: flex;
+  gap: 5px;
+  height: 94px;
+  padding: 13px;
+}
+
+.vv-audio-wave-meter span {
+  background: linear-gradient(var(--vv-red-light), var(--vv-red-dark));
+  border-radius: 999px;
+  flex: 1;
+  min-width: 4px;
+}
+
+.vv-audio-wave-meter span.is-peak {
+  background: #f6bf4f;
+  box-shadow: 0 0 10px rgba(246, 191, 79, 0.24);
+}
+
+.vv-audio-meter-legend {
+  color: var(--vv-text-tertiary);
+  display: flex;
+  font-size: 10px;
+  font-weight: 800;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.vv-volume-control {
+  align-items: center;
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 999px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 40px 1fr 44px;
+  min-height: 52px;
+  padding: 6px 12px 6px 6px;
+}
+
+.vv-audio-icon-button {
+  align-items: center;
+  background: rgba(18, 18, 18, 0.9);
+  border: 1px solid rgba(113, 113, 122, 0.24);
+  border-radius: 999px;
+  color: var(--vv-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+  width: 40px;
+}
+
+.vv-audio-icon-button:hover,
+.vv-audio-icon-button.is-active {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: rgba(239, 68, 68, 0.42);
+  box-shadow: var(--vv-glow-subtle);
+  color: var(--vv-red-light);
+}
+
+.vv-volume-slider {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.vv-volume-slider input,
+.vv-audio-tuning-row input {
+  accent-color: var(--vv-red-default);
+  width: 100%;
+}
+
+.vv-volume-control > strong {
+  color: var(--vv-text-primary);
+  font-size: 12px;
+  text-align: right;
+}
+
+.vv-audio-volume-presets,
+.vv-output-selector {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vv-audio-volume-presets button,
+.vv-output-selector button {
+  align-items: center;
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 12px;
+  color: var(--vv-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  gap: 6px;
+  justify-content: center;
+  min-height: 38px;
+  min-width: 0;
+  padding: 0 10px;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.vv-audio-volume-presets button:hover,
+.vv-audio-volume-presets button.is-selected,
+.vv-output-selector button:hover,
+.vv-output-selector button.is-selected {
+  background: rgba(220, 38, 38, 0.18);
+  border-color: var(--vv-border-focus);
+  color: var(--vv-text-primary);
+}
+
+.vv-audio-tuning-row {
+  align-items: center;
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 12px;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 74px 1fr 38px;
+  min-height: 44px;
+  padding: 9px 11px;
+}
+
+.vv-audio-tuning-row span,
+.vv-audio-output-note span {
+  color: var(--vv-text-tertiary);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vv-audio-tuning-row strong {
+  color: var(--vv-text-primary);
+  font-size: 11px;
+  text-align: right;
+}
+
+.vv-output-selector {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vv-audio-output-note {
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid rgba(39, 39, 42, 0.82);
+  border-radius: 12px;
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+}
+
+.vv-audio-output-note strong {
+  color: var(--vv-text-primary);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 @keyframes vv-spin {
   to {
     transform: rotate(360deg);
@@ -2206,6 +2434,23 @@ button {
 
   .vv-flow-picker {
     grid-template-columns: 1fr;
+  }
+
+  .vv-audio-gauge-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .vv-audio-gauge-controls {
+    width: 100%;
+  }
+
+  .vv-audio-tuning-row {
+    grid-template-columns: 1fr;
+  }
+
+  .vv-audio-tuning-row strong {
+    text-align: left;
   }
 
   .vv-icon-grid {

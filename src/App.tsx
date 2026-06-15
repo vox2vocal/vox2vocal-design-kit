@@ -5,6 +5,10 @@ import {
   RoundActionButton,
   SmallIconButton,
 } from './components/Buttons';
+import {
+  AudioControlsGalleryCatalog,
+  AudioControlsGalleryPreview,
+} from './components/AudioControlsGallery';
 import { ButtonGalleryCatalog, ButtonGalleryPreview } from './components/ButtonGallery';
 import { InfoPanel, SongSectionCard } from './components/Cards';
 import { CardGalleryCatalog, CardGalleryPreview } from './components/CardGallery';
@@ -30,6 +34,7 @@ const sections = [
   'Forms',
   'Cards',
   'Feedback',
+  'Audio Controls',
   'Learner Flow',
 ] as const;
 type Section = (typeof sections)[number];
@@ -123,7 +128,9 @@ function App() {
                             ? 'Cards'
                             : activeSection === 'Feedback'
                               ? 'Feedback'
-                              : 'Component Preview'
+                              : activeSection === 'Audio Controls'
+                                ? 'Audio'
+                                : 'Component Preview'
               }
             />
             <div className="vv-mobile-scroll">
@@ -144,6 +151,8 @@ function App() {
                 <CardGalleryPreview />
               ) : activeSection === 'Feedback' ? (
                 <FeedbackGalleryPreview />
+              ) : activeSection === 'Audio Controls' ? (
+                <AudioControlsGalleryPreview />
               ) : (
                 <>
                   <section className="vv-preview-hero">
@@ -255,9 +264,11 @@ function App() {
                           ? 'Card Components'
                           : activeSection === 'Feedback'
                             ? 'Feedback Components'
-                            : activeSection === 'Learner Flow'
-                              ? 'Learner Components'
-                              : 'Component States'}
+                            : activeSection === 'Audio Controls'
+                              ? 'Audio Control Components'
+                              : activeSection === 'Learner Flow'
+                                ? 'Learner Components'
+                                : 'Component States'}
             </h2>
           </div>
 
@@ -290,6 +301,8 @@ function App() {
             <CardGalleryCatalog />
           ) : activeSection === 'Feedback' ? (
             <FeedbackGalleryCatalog />
+          ) : activeSection === 'Audio Controls' ? (
+            <AudioControlsGalleryCatalog />
           ) : activeSection === 'Learner Flow' ? (
             <LearnerCoreFlowCatalog
               onSelect={setSelectedLearnerComponent}
