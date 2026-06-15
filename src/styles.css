@@ -164,7 +164,32 @@ button {
 
 .vv-section-tabs {
   display: grid;
-  gap: 8px;
+  gap: 15px;
+}
+
+.vv-section-group {
+  display: grid;
+  gap: 7px;
+}
+
+.vv-section-group-header {
+  display: grid;
+  gap: 3px;
+  padding: 0 3px;
+}
+
+.vv-section-group-header span {
+  color: var(--vv-red-light);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vv-section-group-header small {
+  color: var(--vv-text-tertiary);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .vv-section-tabs button {
@@ -174,15 +199,31 @@ button {
   border-radius: var(--vv-radius-xl);
   color: var(--vv-text-secondary);
   cursor: pointer;
-  display: flex;
-  font-size: 14px;
+  display: grid;
+  font-size: 13px;
   font-weight: 700;
-  height: 42px;
-  padding: 0 14px;
+  gap: 3px;
+  justify-items: start;
+  min-height: 52px;
+  padding: 9px 13px;
+  text-align: left;
   transition:
     background 0.3s ease,
     border-color 0.3s ease,
     color 0.3s ease;
+}
+
+.vv-section-tabs button span,
+.vv-section-tabs button small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.vv-section-tabs button small {
+  color: var(--vv-text-tertiary);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .vv-section-tabs button:hover,
@@ -190,6 +231,11 @@ button {
   background: var(--vv-surface-1);
   border-color: var(--vv-border-default);
   color: var(--vv-text-primary);
+}
+
+.vv-section-tabs button:hover small,
+.vv-section-tabs button.is-active small {
+  color: var(--vv-text-secondary);
 }
 
 .vv-section-tabs button.is-active {
@@ -715,6 +761,13 @@ button {
 
 .vv-inspector-header h2 {
   margin-top: 4px;
+}
+
+.vv-inspector-header p {
+  color: var(--vv-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 8px 0 0;
 }
 
 .vv-token-list {
@@ -2385,15 +2438,19 @@ button {
 
   .vv-section-tabs {
     display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    grid-template-columns: 1fr;
+  }
+
+  .vv-section-group {
+    gap: 7px;
   }
 
   .vv-section-tabs button {
-    justify-content: center;
+    justify-items: start;
     min-width: 0;
-    padding: 0 10px;
-    white-space: nowrap;
+    padding: 9px 12px;
+    white-space: normal;
   }
 
   .vv-mobile-shell {

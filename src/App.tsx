@@ -26,18 +26,109 @@ import { MobileShell, TopNav } from './components/Layout';
 import { TypographyGalleryCatalog, TypographyGalleryPreview } from './components/TypographyGallery';
 import { designTokens } from './design-tokens';
 
-const sections = [
-  'Tokens',
-  'Icons',
-  'Typography',
-  'Buttons',
-  'Forms',
-  'Cards',
-  'Feedback',
-  'Audio Controls',
-  'Learner Flow',
+const sectionGroups = [
+  {
+    label: 'Foundations',
+    description: '브랜드와 UI의 기본 언어',
+    sections: ['Tokens', 'Icons', 'Typography'],
+  },
+  {
+    label: 'Interaction Controls',
+    description: '사용자 입력과 주요 액션',
+    sections: ['Buttons', 'Forms'],
+  },
+  {
+    label: 'Audio Experience',
+    description: '음성 입력, 재생, 상태 피드백',
+    sections: ['Audio Controls', 'Feedback'],
+  },
+  {
+    label: 'Content Surfaces',
+    description: '정보를 담는 카드와 패널',
+    sections: ['Cards'],
+  },
+  {
+    label: 'Product Flows',
+    description: 'Vox2Vocal 도메인 화면 흐름',
+    sections: ['Learner Flow'],
+  },
 ] as const;
-type Section = (typeof sections)[number];
+type Section = (typeof sectionGroups)[number]['sections'][number];
+
+const sectionMeta: Record<
+  Section,
+  {
+    group: string;
+    inspectorTitle: string;
+    navLabel: string;
+    shortTitle: string;
+    summary: string;
+  }
+> = {
+  Tokens: {
+    group: 'Foundations',
+    inspectorTitle: 'Design Tokens',
+    navLabel: 'Design Tokens',
+    shortTitle: 'Tokens',
+    summary: '색상, radius, glow, surface 기준',
+  },
+  Icons: {
+    group: 'Foundations',
+    inspectorTitle: 'Icon Library',
+    navLabel: 'Icon Library',
+    shortTitle: 'Icons',
+    summary: 'Lucide 기반 기능 아이콘 체계',
+  },
+  Typography: {
+    group: 'Foundations',
+    inspectorTitle: 'Typography Scale',
+    navLabel: 'Typography',
+    shortTitle: 'Type',
+    summary: '한국어/영문 화면 글자 체계',
+  },
+  Buttons: {
+    group: 'Interaction Controls',
+    inspectorTitle: 'Button Components',
+    navLabel: 'Buttons',
+    shortTitle: 'Buttons',
+    summary: 'CTA, 보조, 위험, 오디오 액션',
+  },
+  Forms: {
+    group: 'Interaction Controls',
+    inspectorTitle: 'Form Components',
+    navLabel: 'Forms',
+    shortTitle: 'Forms',
+    summary: '입력창, 체크박스, 태그, 검증 메시지',
+  },
+  'Audio Controls': {
+    group: 'Audio Experience',
+    inspectorTitle: 'Audio Control Components',
+    navLabel: 'Audio Controls',
+    shortTitle: 'Audio',
+    summary: '음성 게이지, 볼륨, 출력, 입력 감도',
+  },
+  Feedback: {
+    group: 'Audio Experience',
+    inspectorTitle: 'Feedback Components',
+    navLabel: 'Feedback',
+    shortTitle: 'Feedback',
+    summary: '진행률, 토스트, 처리 단계, 품질 신호',
+  },
+  Cards: {
+    group: 'Content Surfaces',
+    inspectorTitle: 'Card Components',
+    navLabel: 'Cards & Panels',
+    shortTitle: 'Cards',
+    summary: '선택 카드, 안내 패널, 메트릭 surface',
+  },
+  'Learner Flow': {
+    group: 'Product Flows',
+    inspectorTitle: 'Learner Components',
+    navLabel: 'Learner Flow',
+    shortTitle: 'Learner Flow',
+    summary: '곡 선택부터 프리뷰 평가까지의 도메인 흐름',
+  },
+};
 
 const tokenGroups = [
   {
@@ -69,6 +160,7 @@ function App() {
     useState<LearnerComponentId>('access-eligibility');
 
   const meterLevel = useMemo(() => (isRecording ? 76 : 24), [isRecording]);
+  const activeMeta = sectionMeta[activeSection];
 
   const toggleTag = (tag: string) => {
     setSelectedTags((current) =>
@@ -91,21 +183,31 @@ function App() {
           </div>
 
           <div className="vv-pane-block">
-            <span className="vv-kicker">Mode</span>
-            <strong>Black & Red / Neon Audio</strong>
-            <p>모바일 우선, 웹 중앙 고정폭 컨테이너 기준의 UI 컴포넌트 작업대입니다.</p>
+            <span className="vv-kicker">Component Architecture</span>
+            <strong>{activeMeta.group}</strong>
+            <p>{activeMeta.summary}</p>
           </div>
 
           <nav className="vv-section-tabs" aria-label="컴포넌트 섹션">
-            {sections.map((section) => (
-              <button
-                className={section === activeSection ? 'is-active' : ''}
-                key={section}
-                onClick={() => setActiveSection(section)}
-                type="button"
-              >
-                {section}
-              </button>
+            {sectionGroups.map((group) => (
+              <div className="vv-section-group" key={group.label}>
+                <div className="vv-section-group-header">
+                  <span>{group.label}</span>
+                  <small>{group.description}</small>
+                </div>
+                {group.sections.map((section) => (
+                  <button
+                    className={section === activeSection ? 'is-active' : ''}
+                    data-section={section}
+                    key={section}
+                    onClick={() => setActiveSection(section)}
+                    type="button"
+                  >
+                    <span>{sectionMeta[section].navLabel}</span>
+                    <small>{sectionMeta[section].summary}</small>
+                  </button>
+                ))}
+              </div>
             ))}
           </nav>
         </aside>
@@ -113,25 +215,7 @@ function App() {
         <div className="vv-preview-column">
           <MobileShell>
             <TopNav
-              title={
-                activeSection === 'Learner Flow'
-                  ? 'Learner Flow'
-                  : activeSection === 'Icons'
-                    ? 'Icons'
-                    : activeSection === 'Typography'
-                      ? 'Typography'
-                      : activeSection === 'Buttons'
-                        ? 'Buttons'
-                        : activeSection === 'Forms'
-                          ? 'Forms'
-                          : activeSection === 'Cards'
-                            ? 'Cards'
-                            : activeSection === 'Feedback'
-                              ? 'Feedback'
-                              : activeSection === 'Audio Controls'
-                                ? 'Audio'
-                                : 'Component Preview'
-              }
+              title={activeMeta.shortTitle}
             />
             <div className="vv-mobile-scroll">
               {activeSection === 'Learner Flow' ? (
@@ -248,28 +332,9 @@ function App() {
 
         <aside className="vv-inspector">
           <div className="vv-inspector-header">
-            <span className="vv-kicker">{activeSection}</span>
-            <h2>
-              {activeSection === 'Tokens'
-                ? 'Design Tokens'
-                : activeSection === 'Icons'
-                  ? 'Icon Library'
-                  : activeSection === 'Typography'
-                    ? 'Typography Scale'
-                    : activeSection === 'Buttons'
-                      ? 'Button Components'
-                      : activeSection === 'Forms'
-                        ? 'Form Components'
-                        : activeSection === 'Cards'
-                          ? 'Card Components'
-                          : activeSection === 'Feedback'
-                            ? 'Feedback Components'
-                            : activeSection === 'Audio Controls'
-                              ? 'Audio Control Components'
-                              : activeSection === 'Learner Flow'
-                                ? 'Learner Components'
-                                : 'Component States'}
-            </h2>
+            <span className="vv-kicker">{activeMeta.group}</span>
+            <h2>{activeMeta.inspectorTitle}</h2>
+            <p>{activeMeta.summary}</p>
           </div>
 
           {activeSection === 'Tokens' ? (
