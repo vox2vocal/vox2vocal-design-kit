@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Radio, SlidersHorizontal, Sparkles, Waves } from 'lucide-react';
 import logo from './assets/logo.png';
 import {
-  GhostButton,
   PrimaryGradientButton,
   RoundActionButton,
   SmallIconButton,
@@ -11,6 +9,7 @@ import { ButtonGalleryCatalog, ButtonGalleryPreview } from './components/ButtonG
 import { InfoPanel, SongSectionCard } from './components/Cards';
 import { CardGalleryCatalog, CardGalleryPreview } from './components/CardGallery';
 import { MicLevelMeter, ProgressBar, ToastAlert } from './components/Feedback';
+import { FeedbackGalleryCatalog, FeedbackGalleryPreview } from './components/FeedbackGallery';
 import { FormGalleryCatalog, FormGalleryPreview } from './components/FormGallery';
 import { CustomCheckbox, FailureTagChip, TextInput } from './components/FormControls';
 import { IconGalleryCatalog, IconGalleryPreview } from './components/IconGallery';
@@ -34,10 +33,6 @@ const sections = [
   'Learner Flow',
 ] as const;
 type Section = (typeof sections)[number];
-type PrimitiveSection = Exclude<
-  Section,
-  'Buttons' | 'Cards' | 'Forms' | 'Icons' | 'Learner Flow' | 'Tokens' | 'Typography'
->;
 
 const tokenGroups = [
   {
@@ -126,7 +121,9 @@ function App() {
                           ? 'Forms'
                           : activeSection === 'Cards'
                             ? 'Cards'
-                            : 'Component Preview'
+                            : activeSection === 'Feedback'
+                              ? 'Feedback'
+                              : 'Component Preview'
               }
             />
             <div className="vv-mobile-scroll">
@@ -145,6 +142,8 @@ function App() {
                 <FormGalleryPreview />
               ) : activeSection === 'Cards' ? (
                 <CardGalleryPreview />
+              ) : activeSection === 'Feedback' ? (
+                <FeedbackGalleryPreview />
               ) : (
                 <>
                   <section className="vv-preview-hero">
@@ -254,9 +253,11 @@ function App() {
                         ? 'Form Components'
                         : activeSection === 'Cards'
                           ? 'Card Components'
-                          : activeSection === 'Learner Flow'
-                            ? 'Learner Components'
-                            : 'Component States'}
+                          : activeSection === 'Feedback'
+                            ? 'Feedback Components'
+                            : activeSection === 'Learner Flow'
+                              ? 'Learner Components'
+                              : 'Component States'}
             </h2>
           </div>
 
@@ -287,50 +288,18 @@ function App() {
             <FormGalleryCatalog />
           ) : activeSection === 'Cards' ? (
             <CardGalleryCatalog />
+          ) : activeSection === 'Feedback' ? (
+            <FeedbackGalleryCatalog />
           ) : activeSection === 'Learner Flow' ? (
             <LearnerCoreFlowCatalog
               onSelect={setSelectedLearnerComponent}
               selectedId={selectedLearnerComponent}
             />
           ) : (
-            <ComponentNotes activeSection={activeSection} />
+            null
           )}
         </aside>
       </section>
-    </div>
-  );
-}
-
-function ComponentNotes({ activeSection }: { activeSection: PrimitiveSection }) {
-  const content = {
-    Buttons: {
-      icon: <Sparkles aria-hidden size={20} />,
-      title: 'Primary, Ghost, Round, Small Icon',
-      body: 'Gradient CTA, outline fallback, 녹음/정지/재생 라운드 액션, active 토글 상태를 한 세트로 관리합니다.',
-    },
-    Forms: {
-      icon: <SlidersHorizontal aria-hidden size={20} />,
-      title: 'Input, Checkbox, Chip',
-      body: '포커스 글로우, 아이콘 컬러 전환, 커스텀 체크 애니메이션, 평가 태그 선택 상태를 포함합니다.',
-    },
-    Cards: {
-      icon: <Radio aria-hidden size={20} />,
-      title: 'Song Card, Info Panel',
-      body: '곡/구간 선택 카드와 위험/일반 안내 패널을 동일한 surface, border, red accent 체계로 묶습니다.',
-    },
-    Feedback: {
-      icon: <Waves aria-hidden size={20} />,
-      title: 'Progress, Meter, Toast',
-      body: '오디오 앱의 실시간 피드백을 위해 진행률, 마이크 입력 바, 경고 토스트를 제공합니다.',
-    },
-  }[activeSection];
-
-  return (
-    <div className="vv-state-card">
-      <div className="vv-state-icon">{content.icon}</div>
-      <h3>{content.title}</h3>
-      <p>{content.body}</p>
-      <GhostButton>Fallback 업로드</GhostButton>
     </div>
   );
 }
