@@ -43,7 +43,9 @@ export type LearnerComponentMeta = {
   enName: string;
   role: string;
   screen: string;
+  phase: string;
   state: string;
+  contract: string;
 };
 
 export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
@@ -53,7 +55,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Access Eligibility Banner',
     role: '사용자가 P0 내부 운영 대상인지, 선택 가능한 곡이 있는지, 권리 상태가 안전한지 먼저 알려준다.',
     screen: 'Access Eligibility / Song Selection',
+    phase: 'Access Gate',
     state: 'eligible, not eligible, rights blocked, under review',
+    contract: '권한, allowlist, rights flag를 recording 전에 선검증한다.',
   },
   {
     id: 'song-selection',
@@ -61,7 +65,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Song Selection Card',
     role: '관리자 등록 song package를 선택하게 하고, title, artist, rights state, 기본 section을 함께 보여준다.',
     screen: 'Access Eligibility / Song Selection',
+    phase: 'Song Setup',
     state: 'published, internal risk accepted, disabled',
+    contract: 'songPackageId와 defaultSectionId를 다음 단계 선택 context로 전달한다.',
   },
   {
     id: 'section-selection',
@@ -69,7 +75,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Section Timeline Row',
     role: '선택한 곡의 target section, timestamp, 예상 녹음 길이, guide 노출 가능 여부를 표시한다.',
     screen: 'Section Selection / Part Selection',
+    phase: 'Song Setup',
     state: 'selected, blocked, guide unavailable',
+    contract: 'sectionId, timestamp, guideAvailability를 recording context로 고정한다.',
   },
   {
     id: 'consent-checklist',
@@ -77,7 +85,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Consent Checklist',
     role: '본인 음성 처리, 생성 preview, expert review, 보관 고지 동의가 현재 policy version과 맞는지 확인한다.',
     screen: 'Record Take / Take Review',
+    phase: 'Policy Gate',
     state: 'complete, missing, outdated',
+    contract: 'policyVersion과 consent snapshot을 job 생성 전 lock한다.',
   },
   {
     id: 'recorder-entry-gate',
@@ -85,7 +95,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Recorder Entry Gate',
     role: '녹음 전에 BPM/key snapshot, 동의 snapshot, 사용 제한 문구, 권리 flag를 한 번에 검증한다.',
     screen: 'Record Take / Take Review',
+    phase: 'Record Gate',
     state: 'ready, awaiting consent, blocked by policy',
+    contract: 'BPM/key, consent, usage restriction을 ready/blocked state로 묶는다.',
   },
   {
     id: 'recording-controls',
@@ -93,7 +105,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Recording Control Panel',
     role: 'mic permission, count-in, timer, input level, record/stop, reference pre-listen 중지를 다룬다.',
     screen: 'Record Take / Take Review',
+    phase: 'Recording',
     state: 'ready, recording, mic denied, clipping warning',
+    contract: 'mic permission, timer, level meter, reference stop rule을 같은 패널에서 관리한다.',
   },
   {
     id: 'take-review',
@@ -101,7 +115,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Take Review Panel',
     role: '녹음된 본인 take를 재생, retake, validation 확인 후 processing 시작 CTA로 이어준다.',
     screen: 'Record Take / Take Review',
+    phase: 'Review',
     state: 'take ready, needs retake, submitting',
+    contract: 'recorded take validation이 통과한 뒤 processing submit CTA를 활성화한다.',
   },
   {
     id: 'fallback-upload',
@@ -109,7 +125,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Fallback Upload Panel',
     role: 'recorder를 쓸 수 없을 때 wav/mp3 파일 업로드, TTL, 진행률, 형식 제한을 보여준다.',
     screen: 'Record Take / Take Review',
+    phase: 'Fallback',
     state: 'enabled, uploading, rejected, expired',
+    contract: 'presigned upload TTL, format validation, upload progress를 표시한다.',
   },
   {
     id: 'processing-status',
@@ -117,7 +135,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Processing Status Summary',
     role: 'canonical job state, stage progress, output flags, 실패/차단 사유를 사용자가 이해할 수 있게 보여준다.',
     screen: 'Processing Status',
+    phase: 'Processing',
     state: 'queued, processing, preview ready, failed, blocked',
+    contract: 'canonical job state와 stage progress를 polling 결과로 동기화한다.',
   },
   {
     id: 'preview-rating',
@@ -125,7 +145,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Preview Player And Rating',
     role: 'app-only self-voice preview를 재생하고, preview_played 이후 1-5점 평가와 실패 태그를 수집한다.',
     screen: 'Result / Preview / Rating',
+    phase: 'Result',
     state: 'preview ready, playback blocked, rating required',
+    contract: 'preview_played 이후 rating과 failure tag 입력을 수집한다.',
   },
   {
     id: 'pitch-feedback',
@@ -133,7 +155,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Pitch Feedback Panel',
     role: '현재 음정과 목표 음정 차이, confidence, low-confidence/disputed 구간을 시각화한다.',
     screen: 'Result / Preview / Rating',
+    phase: 'Feedback',
     state: 'trusted, low confidence, disputed, report unavailable',
+    contract: 'confidence와 disputed range를 result panel의 품질 신호로 연결한다.',
   },
   {
     id: 'deletion-consent',
@@ -141,7 +165,9 @@ export const learnerCoreComponentMeta: LearnerComponentMeta[] = [
     enName: 'Consent And Deletion Status',
     role: '사용자가 job 단위 동의 상태, 보관 기한, 철회 영향, 삭제 진행 상태를 확인하게 한다.',
     screen: 'Data / Consent / Deletion Settings',
+    phase: 'Data Control',
     state: 'retention active, deletion scheduled, deleted, deletion failed',
+    contract: 'retention/deletion state와 consent withdrawal action을 함께 노출한다.',
   },
 ];
 
@@ -169,6 +195,11 @@ export function LearnerCoreFlowPreview({
         </div>
         <h2>Learner Core Flow</h2>
         <p>곡 선택부터 preview 평가까지 P0 학습자 흐름을 구성하는 도메인 컴포넌트입니다.</p>
+        <div className="vv-flow-overview-grid" aria-label="Learner Flow 요약">
+          <FlowOverviewCard label="Components" value="12" />
+          <FlowOverviewCard label="Screens" value="5+" />
+          <FlowOverviewCard label="Contract" value="App-only" />
+        </div>
       </section>
 
       <div className="vv-flow-picker" aria-label="Learner Core Flow 컴포넌트 선택">
@@ -180,7 +211,8 @@ export function LearnerCoreFlowPreview({
             type="button"
           >
             <span>{index + 1}</span>
-            {component.koName}
+            <strong>{component.koName}</strong>
+            <small>{component.phase}</small>
           </button>
         ))}
       </div>
@@ -195,8 +227,13 @@ export function LearnerCoreFlowPreview({
         </h3>
         <p>{selectedMeta.role}</p>
         <div className="vv-flow-meta-row">
+          <StatusPill tone="success">{selectedMeta.phase}</StatusPill>
           <StatusPill tone="info">{selectedMeta.screen}</StatusPill>
           <StatusPill>{selectedMeta.state}</StatusPill>
+        </div>
+        <div className="vv-flow-contract">
+          <span>Implementation contract</span>
+          <strong>{selectedMeta.contract}</strong>
         </div>
       </section>
 
@@ -223,7 +260,13 @@ export function LearnerCoreFlowCatalog({
             {component.koName} <em>({component.enName})</em>
           </strong>
           <p>{component.role}</p>
-          <small>{component.screen}</small>
+          <div className="vv-flow-catalog-meta">
+            <span>{component.phase}</span>
+            <span>{component.state}</span>
+          </div>
+          <small>
+            {component.screen} · {component.contract}
+          </small>
         </button>
       ))}
     </div>
@@ -257,6 +300,15 @@ function LearnerComponentSample({ id }: { id: LearnerComponentId }) {
   };
 
   return <div className="vv-flow-sample">{samples[id]}</div>;
+}
+
+function FlowOverviewCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="vv-flow-overview-card">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
 }
 
 function AccessEligibilityBanner() {
