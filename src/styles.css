@@ -1841,11 +1841,24 @@ button {
   left: 50%;
   line-height: 1.45;
   max-width: 220px;
+  opacity: 0;
   padding: 9px 11px;
+  pointer-events: none;
   position: absolute;
   text-align: center;
   top: 34px;
-  transform: translateX(-50%);
+  transform: translate(-50%, 6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+  visibility: hidden;
+}
+
+.vv-tooltip-bubble.is-open {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
 }
 
 .vv-tooltip-bubble::after {

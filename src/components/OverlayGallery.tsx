@@ -154,6 +154,8 @@ export function ModalGalleryCatalog() {
 }
 
 export function TooltipGalleryPreview() {
+  const [isTooltipOpen, setTooltipOpen] = useState(false);
+
   return (
     <section className="vv-system-gallery" aria-label="툴팁 컴포넌트">
       <div className="vv-system-hero">
@@ -173,10 +175,27 @@ export function TooltipGalleryPreview() {
             role="hover/focus 시 표시될 도움말의 위치와 길이를 정의합니다."
           />
           <div className="vv-tooltip-stage">
-            <button className="vv-audio-icon-button" aria-label="프리리슨 설명" type="button">
+            <button
+              aria-describedby="prelisten-tooltip"
+              className="vv-audio-icon-button"
+              aria-label="프리리슨 설명"
+              onClick={() => setTooltipOpen(true)}
+              onBlur={() => setTooltipOpen(false)}
+              onFocus={() => setTooltipOpen(true)}
+              onMouseEnter={() => setTooltipOpen(true)}
+              onMouseLeave={() => setTooltipOpen(false)}
+              onPointerEnter={() => setTooltipOpen(true)}
+              onPointerLeave={() => setTooltipOpen(false)}
+              type="button"
+            >
               <MousePointer2 aria-hidden size={18} />
             </button>
-            <div className="vv-tooltip-bubble vv-tooltip-bubble-top" role="tooltip">
+            <div
+              aria-hidden={!isTooltipOpen}
+              className={`vv-tooltip-bubble vv-tooltip-bubble-top ${isTooltipOpen ? 'is-open' : ''}`}
+              id="prelisten-tooltip"
+              role="tooltip"
+            >
               프리리슨은 녹음 시작 전에 자동으로 중지됩니다.
             </div>
           </div>
