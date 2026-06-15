@@ -18,6 +18,26 @@ import { FormGalleryCatalog, FormGalleryPreview } from './components/FormGallery
 import { CustomCheckbox, FailureTagChip, TextInput } from './components/FormControls';
 import { IconGalleryCatalog, IconGalleryPreview } from './components/IconGallery';
 import {
+  TabsGalleryCatalog,
+  TabsGalleryPreview,
+  TreeGalleryCatalog,
+  TreeGalleryPreview,
+} from './components/NavigationGallery';
+import {
+  LoadingModalGalleryCatalog,
+  LoadingModalGalleryPreview,
+  ModalGalleryCatalog,
+  ModalGalleryPreview,
+  TooltipGalleryCatalog,
+  TooltipGalleryPreview,
+} from './components/OverlayGallery';
+import {
+  RadioGalleryCatalog,
+  RadioGalleryPreview,
+  SelectGalleryCatalog,
+  SelectGalleryPreview,
+} from './components/ChoiceControlsGallery';
+import {
   type LearnerComponentId,
   LearnerCoreFlowCatalog,
   LearnerCoreFlowPreview,
@@ -35,7 +55,17 @@ const sectionGroups = [
   {
     label: 'Interaction Controls',
     description: '사용자 입력과 주요 액션',
-    sections: ['Buttons', 'Forms'],
+    sections: ['Buttons', 'Forms', 'Radio', 'Select'],
+  },
+  {
+    label: 'Navigation & Layout',
+    description: '화면 전환과 계층 탐색',
+    sections: ['Tabs', 'Tree'],
+  },
+  {
+    label: 'Overlays & Disclosure',
+    description: '맥락 위에 뜨는 안내와 작업',
+    sections: ['Modal', 'Tooltip', 'Loading Modal'],
   },
   {
     label: 'Audio Experience',
@@ -99,6 +129,55 @@ const sectionMeta: Record<
     navLabel: 'Forms',
     shortTitle: 'Forms',
     summary: '입력창, 체크박스, 태그, 검증 메시지',
+  },
+  Radio: {
+    group: 'Interaction Controls',
+    inspectorTitle: 'Radio Components',
+    navLabel: 'Radio',
+    shortTitle: 'Radio',
+    summary: '단일 선택, 카드 선택, 추천 옵션',
+  },
+  Select: {
+    group: 'Interaction Controls',
+    inspectorTitle: 'Select Components',
+    navLabel: 'Select',
+    shortTitle: 'Select',
+    summary: '네이티브/커스텀 option 선택',
+  },
+  Tabs: {
+    group: 'Navigation & Layout',
+    inspectorTitle: 'Tab Components',
+    navLabel: 'Tabs',
+    shortTitle: 'Tabs',
+    summary: '페이지/섹션/모드 전환',
+  },
+  Tree: {
+    group: 'Navigation & Layout',
+    inspectorTitle: 'Tree Components',
+    navLabel: 'Tree',
+    shortTitle: 'Tree',
+    summary: '컴포넌트/문서/플로우 계층 탐색',
+  },
+  Modal: {
+    group: 'Overlays & Disclosure',
+    inspectorTitle: 'Modal Components',
+    navLabel: 'Modal',
+    shortTitle: 'Modal',
+    summary: '집중 안내, 확인, 위험 action',
+  },
+  Tooltip: {
+    group: 'Overlays & Disclosure',
+    inspectorTitle: 'Tooltip Components',
+    navLabel: 'Tooltip',
+    shortTitle: 'Tooltip',
+    summary: '짧은 도움말과 아이콘 설명',
+  },
+  'Loading Modal': {
+    group: 'Overlays & Disclosure',
+    inspectorTitle: 'Loading Modal Components',
+    navLabel: 'Loading Modal',
+    shortTitle: 'Loading',
+    summary: '차단형/단계형 처리 상태 안내',
   },
   'Audio Controls': {
     group: 'Audio Experience',
@@ -197,6 +276,7 @@ function App() {
                 </div>
                 {group.sections.map((section) => (
                   <button
+                    aria-current={section === activeSection ? 'page' : undefined}
                     className={section === activeSection ? 'is-active' : ''}
                     data-section={section}
                     key={section}
@@ -231,6 +311,20 @@ function App() {
                 <ButtonGalleryPreview />
               ) : activeSection === 'Forms' ? (
                 <FormGalleryPreview />
+              ) : activeSection === 'Radio' ? (
+                <RadioGalleryPreview />
+              ) : activeSection === 'Select' ? (
+                <SelectGalleryPreview />
+              ) : activeSection === 'Tabs' ? (
+                <TabsGalleryPreview />
+              ) : activeSection === 'Tree' ? (
+                <TreeGalleryPreview />
+              ) : activeSection === 'Modal' ? (
+                <ModalGalleryPreview />
+              ) : activeSection === 'Tooltip' ? (
+                <TooltipGalleryPreview />
+              ) : activeSection === 'Loading Modal' ? (
+                <LoadingModalGalleryPreview />
               ) : activeSection === 'Cards' ? (
                 <CardGalleryPreview />
               ) : activeSection === 'Feedback' ? (
@@ -362,6 +456,20 @@ function App() {
             <ButtonGalleryCatalog />
           ) : activeSection === 'Forms' ? (
             <FormGalleryCatalog />
+          ) : activeSection === 'Radio' ? (
+            <RadioGalleryCatalog />
+          ) : activeSection === 'Select' ? (
+            <SelectGalleryCatalog />
+          ) : activeSection === 'Tabs' ? (
+            <TabsGalleryCatalog />
+          ) : activeSection === 'Tree' ? (
+            <TreeGalleryCatalog />
+          ) : activeSection === 'Modal' ? (
+            <ModalGalleryCatalog />
+          ) : activeSection === 'Tooltip' ? (
+            <TooltipGalleryCatalog />
+          ) : activeSection === 'Loading Modal' ? (
+            <LoadingModalGalleryCatalog />
           ) : activeSection === 'Cards' ? (
             <CardGalleryCatalog />
           ) : activeSection === 'Feedback' ? (
