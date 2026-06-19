@@ -43,13 +43,19 @@ export const designTokens = {
     mobileMaxWidth: '384px',
     mobilePadding: '24px',
     topNavHeight: '56px',
+    touchTargetMin: '44px',
     radius: {
       xl: '12px',
       xxl: '16px',
       full: '999px',
     },
   },
+  appContract: {
+    source: '../vox2vocal-app/src/design-system',
+    targetPlatforms: ['ios', 'android', 'web'],
+    requiredStates: ['default', 'hover', 'pressed', 'focus', 'disabled', 'error', 'loading'],
+    verificationViewports: ['360x740', '375x812', '768x1024', '1440x900'],
+  },
 } as const;
 
 export type DesignTokens = typeof designTokens;
-

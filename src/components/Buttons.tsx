@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { ChevronRight, Mic, Play, Square, Volume2 } from 'lucide-react';
+import { Button } from './ui/button';
 
 type ButtonProps = {
   children: ReactNode;
@@ -26,28 +27,30 @@ export function PrimaryGradientButton({
   onClick,
 }: ButtonProps) {
   return (
-    <button
+    <Button
       className="vv-button vv-button-primary"
       disabled={disabled}
       onClick={onClick}
       type="button"
+      variant="gradient"
     >
       <span>{children}</span>
       <ChevronRight aria-hidden size={20} strokeWidth={2.3} />
-    </button>
+    </Button>
   );
 }
 
 export function GhostButton({ children, disabled, onClick }: ButtonProps) {
   return (
-    <button
+    <Button
       className="vv-button vv-button-ghost"
       disabled={disabled}
       onClick={onClick}
       type="button"
+      variant="outline"
     >
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -87,4 +90,3 @@ export function SmallIconButton({ active, label, onClick }: SmallIconButtonProps
     </button>
   );
 }
-

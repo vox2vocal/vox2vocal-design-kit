@@ -5,6 +5,7 @@ import {
   RoundActionButton,
   SmallIconButton,
 } from './Buttons';
+import { Button } from './ui/button';
 
 type ButtonSpec = {
   enName: string;
@@ -73,10 +74,10 @@ export function ButtonGalleryPreview() {
           />
           <PrimaryGradientButton>처리 시작</PrimaryGradientButton>
           <PrimaryGradientButton disabled>동의 필요</PrimaryGradientButton>
-          <button className="vv-button vv-button-primary vv-button-loading" type="button">
+          <Button className="vv-button vv-button-primary vv-button-loading" type="button" variant="gradient">
             <Loader2 aria-hidden size={18} />
             확인 중
-          </button>
+          </Button>
         </article>
 
         <article className="vv-component-demo-card">
@@ -101,10 +102,10 @@ export function ButtonGalleryPreview() {
             koName="위험 액션 버튼"
             role="삭제/철회처럼 사용자가 신중히 확인해야 하는 action입니다."
           />
-          <button className="vv-button vv-button-danger" type="button">
+          <Button className="vv-button vv-button-danger" type="button" variant="danger">
             <Trash2 aria-hidden size={17} />
             데이터 삭제 요청
-          </button>
+          </Button>
         </article>
 
         <article className="vv-component-demo-card">

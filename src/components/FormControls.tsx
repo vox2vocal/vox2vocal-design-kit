@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Check, Lock, Mail } from 'lucide-react';
+import { Input } from './ui/input';
 
 type TextInputProps = {
   icon: 'email' | 'password';
@@ -32,7 +33,7 @@ export function TextInput({
     <label className="vv-field">
       <span className="sr-only">{label}</span>
       <Icon aria-hidden className="vv-field-icon" size={22} strokeWidth={2} />
-      <input placeholder={placeholder} type={type} />
+      <Input placeholder={placeholder} type={type} />
     </label>
   );
 }
